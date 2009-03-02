@@ -11,10 +11,10 @@ do {
         isa       => 'Int',
         default   => 0,
         provides  => {
-            'inc'   => 'inc_counter',
-            'dec'   => 'dec_counter',
-            'reset' => 'reset_counter',
-            'set'   => 'set_counter',
+            inc   => 'inc_counter',
+            dec   => 'dec_counter',
+            reset => 'reset_counter',
+            set   => 'set_counter',
         },
     );
 };

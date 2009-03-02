@@ -1,9 +1,9 @@
 package MouseX::AttributeHelpers;
 
 use 5.008_001;
-#use Mouse 0.18;
+use Mouse 0.17 (); # 0.18 ();
 use MouseX::AttributeHelpers::Counter;
-#use MouseX::AttributeHelpers::Number;
+use MouseX::AttributeHelpers::Number;
 #use MouseX::AttributeHelpers::String;
 #use MouseX::AttributeHelpers::Bool;
 #use MouseX::AttributeHelpers::Collection::List;
@@ -14,7 +14,6 @@ use MouseX::AttributeHelpers::Counter;
 
 our $VERSION = '0.01';
 
-#no Mouse; __PACKAGE__->meta->make_immutable;
 1;
 
 =head1 NAME

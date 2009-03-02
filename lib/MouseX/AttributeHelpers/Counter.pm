@@ -2,43 +2,30 @@ package MouseX::AttributeHelpers::Counter;
 
 use Mouse;
 
-extends 'Mouse::Meta::Attribute';
+extends 'MouseX::AttributeHelpers::Base';
 
-{
-    my $providers = {
-        reset => sub {
-            my ($attr, $name) = @_;
-            return sub { $_[0]->$name($attr->default) };
-        },
-        set => sub {
-            my ($attr, $name) = @_;
-            return sub { $_[0]->$name($_[1]) };
-        },
-        inc => sub {
-            my ($attr, $name) = @_;
-            return sub { $_[0]->$name($_[0]->$name() + (defined $_[1] ? $_[1] : 1)) };
-        },
-        dec => sub {
-            my ($attr, $name) = @_;
-            return sub { $_[0]->$name($_[0]->$name() - (defined $_[1] ? $_[1] : 1)) };
-        },
-    };
-
-    around 'create' => sub {
-        my ($next, @args) = @_;
-        my $attr = $next->(@args);
-
-        my %provides = %{ $attr->{provides} || {} };
-        while (my ($name, $aliased) = each %provides) {
-            next unless exists $providers->{$name};
-            $attr->associated_class->add_method(
-                $aliased => $providers->{$name}->($attr, $attr->name)
-            );
-        }
-
-        return $attr;
-    };
-}
+has '+method_constructors' => (
+    default => sub {
+        return +{
+            reset => sub {
+                my ($attr, $name) = @_;
+                return sub { $_[0]->$name($attr->default) };
+            },
+            set => sub {
+                my ($attr, $name) = @_;
+                return sub { $_[0]->$name($_[1]) };
+            },
+            inc => sub {
+                my ($attr, $name) = @_;
+                return sub { $_[0]->$name($_[0]->$name() + (defined $_[1] ? $_[1] : 1)) };
+            },
+            dec => sub {
+                my ($attr, $name) = @_;
+                return sub { $_[0]->$name($_[0]->$name() - (defined $_[1] ? $_[1] : 1)) };
+            },
+        };
+    },
+);
 
 no Mouse;
 
