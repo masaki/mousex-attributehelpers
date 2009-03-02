@@ -1,4 +1,4 @@
-use Test::More tests => 16;
+use Test::More tests => 24;
 
 do {
     package MyClass;
@@ -19,18 +19,28 @@ do {
             mod => 'mod',
             abs => 'abs',
         },
+        curries   => {
+            add => { inc         => [ 1 ] },
+            sub => { dec         => [ 1 ] },
+            mod => { odd         => [ 2 ] },
+            div => { cut_in_half => [ 2 ] },
+        }
     );
 };
 
 my $obj = MyClass->new;
 
-my @providers = qw(set add sub mul div mod abs);
+my @providers = qw(
+    set add sub mul div mod abs
+    inc dec odd cut_in_half
+);
 for my $provider (@providers) {
     can_ok $obj => $provider;
 }
 
 is $obj->integer => 5, 'get default value ok';
 
+# provides
 $obj->add(10);
 is $obj->integer => 15, 'add ok';
 
@@ -56,3 +66,17 @@ is $obj->integer => 2, 'set and mod ok';
 $obj->set(-1);
 $obj->abs;
 is $obj->integer => 1, 'abs ok';
+
+# curries
+$obj->set(12);
+$obj->inc;
+is $obj->integer => 13, 'curries inc ok';
+
+$obj->dec;
+is $obj->integer => 12, 'curries dec ok';
+
+$obj->cut_in_half;
+is $obj->integer => 6, 'curries cut_in_half ok';
+
+$obj->odd;
+is $obj->integer => 0, 'curries odd ok';

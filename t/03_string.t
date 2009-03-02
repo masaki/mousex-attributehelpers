@@ -1,4 +1,4 @@
-use Test::More tests => 19;
+use Test::More tests => 26;
 use Test::Deep;
 
 do {
@@ -11,7 +11,7 @@ do {
         is        => 'rw',
         isa       => 'Str',
         default   => '',
-        provides => {
+        provides  => {
             inc     => 'inc_string',
             append  => 'append_string',
             prepend => 'prepend_string',
@@ -21,6 +21,11 @@ do {
             chomp   => 'chomp_string',
             clear   => 'clear_string',
         },
+        curries   => {
+            append  => { exclaim         => [ '!' ] },
+            replace => { capitalize_last => [ qr/(.)$/, sub { uc $1 } ] },
+            match   => { invalid_number  => [ qr/\D/ ] }
+        }
     );
 };
 
@@ -29,6 +34,7 @@ my $obj = MyClass->new;
 my @providers = qw(
     inc_string append_string prepend_string match_string
     replace_string chop_string chomp_string clear_string
+    exclaim capitalize_last invalid_number
 );
 for my $provider (@providers) {
     can_ok $obj => $provider;
@@ -37,6 +43,7 @@ for my $provider (@providers) {
 
 is $obj->string => '', 'get default value ok';
 
+# provides
 $obj->string('a');
 $obj->inc_string;
 is $obj->string => 'b', 'increment string ok';
@@ -66,3 +73,18 @@ is $obj->string => 'bArcfo', 'replace string ok';
 
 $obj->clear_string;
 is $obj->string => '', 'clear string ok';
+
+# curries
+$obj->string('Mousex');
+$obj->capitalize_last;
+is $obj->string => 'MouseX', 'curries capitalize_last ok';
+
+$obj->exclaim;
+is $obj->string => 'MouseX!', 'curries exclaim ok';
+
+$obj->string('1234');
+ok !$obj->invalid_number, 'curries invalid_number ok';
+
+$obj->string('one two three four');
+ok $obj->invalid_number, 'curries invalid_number again ok';
+
