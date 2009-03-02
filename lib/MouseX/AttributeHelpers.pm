@@ -2,7 +2,7 @@ package MouseX::AttributeHelpers;
 
 use 5.008_001;
 #use Mouse 0.18;
-#use MouseX::AttributeHelpers::Counter;
+use MouseX::AttributeHelpers::Counter;
 #use MouseX::AttributeHelpers::Number;
 #use MouseX::AttributeHelpers::String;
 #use MouseX::AttributeHelpers::Bool;
