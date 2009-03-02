@@ -67,6 +67,19 @@ This points to a hashref that uses C<provider> for the keys and
 C<method> for the values. The method will be added to the object
 itself and do what you want.
 
+=head2 curries
+
+This points to a hashref that uses C<provider> for the keys and
+has two choices for the value:
+
+You can supply C<< { method => \@args } >> for the values.
+The method will be added to the object itself (always using C<@args>
+as the beginning arguments).
+
+Another approach to curry a method provider is to supply a coderef
+instead of an arrayref. The code ref takes C<$self>, C<$body>,
+and any additional arguments passed to the final method.
+
 =head1 METHOD PROVIDERS
 
 =head2 L<Counter|MouseX::AttributeHelpers::Counter>
