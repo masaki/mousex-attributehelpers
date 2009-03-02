@@ -4,7 +4,7 @@ use 5.008_001;
 use Mouse 0.17 (); # 0.18 ();
 use MouseX::AttributeHelpers::Counter;
 use MouseX::AttributeHelpers::Number;
-#use MouseX::AttributeHelpers::String;
+use MouseX::AttributeHelpers::String;
 #use MouseX::AttributeHelpers::Bool;
 #use MouseX::AttributeHelpers::Collection::List;
 #use MouseX::AttributeHelpers::Collection::Array;
