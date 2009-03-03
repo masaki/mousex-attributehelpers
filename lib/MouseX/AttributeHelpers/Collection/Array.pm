@@ -48,7 +48,10 @@ has '+method_constructors' => (
             },
             splice => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::splice @{ CORE::shift->$name() }, @_ };
+                return sub {
+                    my ($self, $offset, $length, @args) = @_;
+                    CORE::splice @{ $self->$name() }, $offset, $length, @args;
+                };
             },
         };
     },

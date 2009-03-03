@@ -2,141 +2,135 @@ use Test::More 'no_plan';
 use Test::Deep;
 
 {
-    package Stuff;
+    package MyClass;
     use Mouse;
     use MouseX::AttributeHelpers;
 
-    has 'options' => (
+    has '_options' => (
         metaclass => 'Collection::Array',
         is        => 'rw',
         isa       => 'ArrayRef',
+        init_arg  => 'options',
         default   => sub { [] },
         provides  => {
-            'push'    => 'add_options',
-            'pop'     => 'remove_last_option',    
-            'shift'   => 'remove_first_option',
-            'unshift' => 'insert_options',
-            'get'     => 'get_option_at',
-            'set'     => 'set_option_at',
-            'count'   => 'num_options',
-            'empty'   => 'has_options',        
-            'clear'   => 'clear_options',        
+            push    => 'add_options',
+            pop     => 'remove_last_option',
+            shift   => 'remove_first_option',
+            unshift => 'insert_options',
+            get     => 'get_option_at',
+            set     => 'set_option_at',
+            clear   => 'clear_options',
+            delete  => 'delete_option_at',
+            insert  => 'insert_option_at',
+            splice  => 'splice_options',
+            # with Collection::List
+            count    => 'num_options',
+            empty    => 'has_options',
+            find     => 'find_option',
+            map      => 'map_options',
+            grep     => 'filter_options',
+            elements => 'options',
+            join     => 'join_options',
+            first    => 'get_first_option',
+            last     => 'get_last_option',
         },
         curries   => {
-            'push'    => {
-                add_options_with_speed => ['funrolls', 'funbuns']
+            push    => {
+                add_options_with_speed => ['funrolls', 'funbuns'],
             },
-            'unshift'  => {
-                prepend_prerequisites_along_with => ['first', 'second']
-            }
-        }
+            unshift => {
+                prepend_prerequisites_along_with => ['first', 'second'],
+            },
+        },
     );
 }
 
-my $stuff = Stuff->new(options => [ 10, 12 ]);
-isa_ok($stuff, 'Stuff');
+my $obj = MyClass->new(options => [ 1..10 ]);
 
-can_ok($stuff, $_) for qw[
-    add_options
-    remove_last_option
-    remove_first_option
-    insert_options
-    get_option_at
-    set_option_at
-    num_options
-    clear_options
-    has_options
-];
+my @providers = qw(
+    add_options remove_last_option remove_first_option insert_options
+    get_option_at set_option_at
+    clear_options delete_option_at insert_option_at splice_options
 
-is_deeply($stuff->options, [10, 12], '... got options');
+    num_options has_options find_option map_options filter_options
+    options join_options get_first_option get_last_option
+);
+for my $method (@providers) {
+    can_ok $obj => $method;
+}
 
-ok($stuff->has_options, '... we have options');
-is($stuff->num_options, 2, '... got 2 options');
+my @curries = qw(add_options_with_speed prepend_prerequisites_along_with);
+for my $method (@curries) {
+    can_ok $obj => $method;
+}
 
-is($stuff->remove_last_option, 12, '... removed the last option');
-is($stuff->remove_first_option, 10, '... removed the last option');
+cmp_deeply $obj->_options => [ 1..10 ], 'get value ok';
 
-is_deeply($stuff->options, [], '... no options anymore');
+# provides
+is $obj->remove_last_option => 10, 'provides pop ok';
+is $obj->remove_first_option => 1, 'provides shift ok';
 
-ok(!$stuff->has_options, '... no options');
-is($stuff->num_options, 0, '... got no options');
+$obj->insert_options(1, 2, 3);
+$obj->add_options(10, 20);
+is $obj->get_option_at(0) => 1, 'provides unshift and get ok (1)';
+is $obj->get_option_at(1) => 2, 'provides unshift and get ok (2)';
+is $obj->get_option_at(2) => 3, 'provides unshift and get ok (3)';
+is $obj->get_option_at(-1) => 20, 'provides push and get ok (-1)';
+is $obj->get_option_at(-2) => 10, 'provides push and get ok (-2)';
+is $obj->num_options => 13, 'provides push, unshift and count ok';
 
-lives_ok {
-    $stuff->add_options(1, 2, 3);
-} '... set the option okay';
+$obj->set_option_at(1, 100);
+is $obj->get_option_at(1) => 100, 'provides set and get ok';
 
-is_deeply($stuff->options, [1, 2, 3], '... got options now');
+$obj->clear_options;
+cmp_deeply $obj->_options => [], 'provides clear ok';
 
-ok($stuff->has_options, '... no options');
-is($stuff->num_options, 3, '... got 3 options');
+$obj = MyClass->new(options => [ 1..10 ]);
+is $obj->num_options => 10, 'count ok (10)';
+is $obj->delete_option_at(1) => 2, 'provides delete ok';
+is $obj->num_options => 9, 'count again ok (9)';
+$obj->insert_option_at(1, 20);
+is $obj->num_options => 10, 'count again ok (10)';
+is $obj->get_option_at(1) => 20, 'provides insert ok (20)';
 
-is($stuff->get_option_at(0), 1, '... get option at index 0');
-is($stuff->get_option_at(1), 2, '... get option at index 1');
-is($stuff->get_option_at(2), 3, '... get option at index 2');
+cmp_deeply [ $obj->splice_options(2, 3, 100, 200) ] => [ 3, 4, 5 ], 'provides splice ok';
+is $obj->num_options => 9, 'spliced count ok';
+cmp_deeply [ $obj->options ] => [ 1, 20, 100, 200, 6, 7, 8, 9, 10 ], 'spliced elements ok';
 
-lives_ok {
-    $stuff->set_option_at(1, 100);
-} '... set the option okay';
+# provides (with Collection::List)
+$obj = MyClass->new(options => [ 1..10 ]);
 
-is($stuff->get_option_at(1), 100, '... get option at index 1');
+ok $obj->has_options, 'provides empty ok';
+is $obj->num_options => 10, 'provides count ok';
+is $obj->get_option_at(0) => 1, 'provides get ok';
+is $obj->get_first_option => 1, 'provides first ok';
+is $obj->get_last_option => 10, 'provides last ok';
 
-lives_ok {
-    $stuff->add_options(10, 15);
-} '... set the option okay';
+cmp_deeply
+    [ $obj->filter_options(sub { $_[0] % 2 == 0 }) ],
+    [ 2, 4, 6, 8, 10 ],
+    'provides grep ok';
 
-is_deeply($stuff->options, [1, 100, 3, 10, 15], '... got more options now');
+cmp_deeply
+    [ $obj->map_options(sub { $_[0] * 2 }) ],
+    [ 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 ],
+    'provides map ok';
 
-is($stuff->num_options, 5, '... got 5 options');
+is $obj->find_option(sub { $_[0] % 2 == 0 }) => 2, 'provides find ok';
 
-is($stuff->remove_last_option, 15, '... removed the last option');
+cmp_deeply [ $obj->options ] => [ 1..10 ], 'provides elements ok';
 
-is($stuff->num_options, 4, '... got 4 options');
-is_deeply($stuff->options, [1, 100, 3, 10], '... got diff options now');
+is $obj->join_options(':') => '1:2:3:4:5:6:7:8:9:10', 'provides join ok';
 
-lives_ok {
-    $stuff->insert_options(10, 20);
-} '... set the option okay';
+# curries
+$obj->add_options_with_speed('compatible', 'safe');
+cmp_deeply
+    [ $obj->options ],
+    [qw(1 2 3 4 5 6 7 8 9 10 funrolls funbuns compatible safe)],
+    'curries push ok';
 
-is($stuff->num_options, 6, '... got 6 options');
-is_deeply($stuff->options, [10, 20, 1, 100, 3, 10], '... got diff options now');
-
-is($stuff->get_option_at(0), 10, '... get option at index 0');
-is($stuff->get_option_at(1), 20, '... get option at index 1');
-is($stuff->get_option_at(3), 100, '... get option at index 3');
-
-is($stuff->remove_first_option, 10, '... getting the first option');
-
-is($stuff->num_options, 5, '... got 5 options');
-is($stuff->get_option_at(0), 20, '... get option at index 0');
-
-$stuff->clear_options;
-is_deeply( $stuff->options, [], "... clear options" );
-
-lives_ok {
-    $stuff->add_options('tree');
-} '... set the options okay';
-
-lives_ok { 
-    $stuff->add_options_with_speed('compatible', 'safe');
-} '... add options with speed okay';
-
-is_deeply($stuff->options, [qw/tree funrolls funbuns compatible safe/]);
-
-lives_ok {
-    $stuff->prepend_prerequisites_along_with();
-} '... add prerequisite options okay';
-
-## check some errors
-
-#dies_ok {
-#    $stuff->insert_options(undef);
-#} '... could not add an undef where a string is expected';
-#
-#dies_ok {
-#    $stuff->set_option(5, {});
-#} '... could not add a hash ref where a string is expected';
-
-#dies_ok {
-#    Stuff->new(options => [ undef, 10, undef, 20 ]);
-#} '... bad constructor params';
-
+$obj->prepend_prerequisites_along_with('foobar');
+cmp_deeply
+    [ $obj->options ],
+    [qw(first second foobar 1 2 3 4 5 6 7 8 9 10 funrolls funbuns compatible safe)],
+    'curries unshift ok';

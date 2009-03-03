@@ -52,9 +52,12 @@ my @providers = qw(
     num_options has_options find_option map_options filter_options
     options join_options get_option_at get_first_option get_last_option
 );
-my @curries = qw(less_than_five up_by_one dashify double_length_of);
+for my $method (@providers) {
+    can_ok $obj => $method;
+}
 
-for my $method (@providers, @curries) {
+my @curries = qw(less_than_five up_by_one dashify double_length_of);
+for my $method (@curries) {
     can_ok $obj => $method;
 }
 
