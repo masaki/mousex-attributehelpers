@@ -34,12 +34,15 @@ my $obj = MyClass->new;
 my @providers = qw(
     inc_string append_string prepend_string match_string
     replace_string chop_string chomp_string clear_string
-    exclaim capitalize_last invalid_number
 );
-for my $provider (@providers) {
-    can_ok $obj => $provider;
+for my $method (@providers) {
+    can_ok $obj => $method;
 }
 
+my @curries = qw(exclaim capitalize_last invalid_number);
+for my $method (@curries) {
+    can_ok $obj => $method;
+}
 
 is $obj->string => '', 'get default value ok';
 

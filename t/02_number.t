@@ -24,18 +24,20 @@ do {
             sub => { dec         => [ 1 ] },
             mod => { odd         => [ 2 ] },
             div => { cut_in_half => [ 2 ] },
-        }
+        },
     );
 };
 
 my $obj = MyClass->new;
 
-my @providers = qw(
-    set add sub mul div mod abs
-    inc dec odd cut_in_half
-);
-for my $provider (@providers) {
-    can_ok $obj => $provider;
+my @providers = qw(set add sub mul div mod abs);
+for my $method (@providers) {
+    can_ok $obj => $method;
+}
+
+my @curries = qw(inc dec odd cut_in_half);
+for my $method (@curries) {
+    can_ok $obj => $method;
 }
 
 is $obj->integer => 5, 'get default value ok';
