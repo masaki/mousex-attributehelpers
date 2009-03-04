@@ -30,7 +30,7 @@ has '+method_constructors' => (
 no Mouse;
 
 package # hide from PAUSE
-    Mouse::Meta::Attribute::Custom::Collection::ImmutableHash;
-sub register_implementation { 'MouseX::AttributeHelpers::Collection::ImmutableHash' }
+    Mouse::Meta::Attribute::Custom::Collection::Bag;
+sub register_implementation { 'MouseX::AttributeHelpers::Collection::Bag' }
 
 1;

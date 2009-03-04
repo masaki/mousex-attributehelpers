@@ -9,6 +9,7 @@ tests 't/*.t';
 test_requires 'Test::More';
 test_requires 'ok';
 test_requires 'Test::Deep';
+test_requires 'Test::Data::Scalar';
 author_tests 'xt';
 use_test_base;
 

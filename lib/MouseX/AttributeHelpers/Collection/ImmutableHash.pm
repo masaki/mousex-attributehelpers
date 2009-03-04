@@ -36,7 +36,7 @@ has '+method_constructors' => (
             },
             empty => sub {
                 my ($attr, $name) = @_;
-                return sub { scalar keys %{ $_[0]->$name() ? 1 : 0 };
+                return sub { scalar keys %{ $_[0]->$name() } ? 1 : 0 };
             },
         };
     },
