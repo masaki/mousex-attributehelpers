@@ -12,19 +12,19 @@ has '+method_constructors' => (
             %{ $attr->default->() }, # apply MouseX::AttributeHelpers::Collection::List
             push => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::push @{ CORE::shift->$name() } => @_ };
+                return sub { push @{ shift->$name() } => @_ };
             },
             pop => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::pop @{ $_[0]->$name() } };
+                return sub { pop @{ $_[0]->$name() } };
             },
             unshift => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::unshift @{ CORE::shift->$name() } => @_ };
+                return sub { unshift @{ shift->$name() } => @_ };
             },
             shift => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::shift @{ $_[0]->$name() } };
+                return sub { shift @{ $_[0]->$name() } };
             },
             get => sub {
                 my ($attr, $name) = @_;
@@ -40,17 +40,17 @@ has '+method_constructors' => (
             },
             delete => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::splice @{ $_[0]->$name() }, $_[1], 1 };
+                return sub { splice @{ $_[0]->$name() }, $_[1], 1 };
             },
             insert => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::splice @{ $_[0]->$name() }, $_[1], 0, $_[2] };
+                return sub { splice @{ $_[0]->$name() }, $_[1], 0, $_[2] };
             },
             splice => sub {
                 my ($attr, $name) = @_;
                 return sub {
                     my ($self, $offset, $length, @args) = @_;
-                    CORE::splice @{ $self->$name() }, $offset, $length, @args;
+                    splice @{ $self->$name() }, $offset, $length, @args;
                 };
             },
         };

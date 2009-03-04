@@ -9,34 +9,34 @@ has '+method_constructors' => (
         return +{
             exists => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::exists $_[0]->$name()->{$_[1]} ? 1 : 0 };
+                return sub { exists $_[0]->$name()->{$_[1]} ? 1 : 0 };
             },
             get => sub {
                 my ($attr, $name) = @_;
-                return sub { @_ == 2 ? $_[0]->$name()->{$_[1]} : @{ CORE::shift->$name() }{@_} };
+                return sub { @_ == 2 ? $_[0]->$name()->{$_[1]} : @{ shift->$name() }{@_} };
             },
             keys => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::keys %{ $_[0]->$name() } };
+                return sub { keys %{ $_[0]->$name() } };
             },
             values => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::values %{ $_[0]->$name() } };
+                return sub { values %{ $_[0]->$name() } };
             },
             kv => sub {
                 my ($attr, $name) = @_;
                 return sub {
                     my $h = $_[0]->$name();
-                    map { [ $_, $h->{$_} ] } CORE::keys %$h;
+                    map { [ $_, $h->{$_} ] } keys %$h;
                 };
             },
             count => sub {
                 my ($attr, $name) = @_;
-                return sub { scalar CORE::keys %{ $_[0]->$name() } };
+                return sub { scalar keys %{ $_[0]->$name() } };
             },
             empty => sub {
                 my ($attr, $name) = @_;
-                return sub { scalar CORE::keys %{ $_[0]->$name() ? 1 : 0 };
+                return sub { scalar keys %{ $_[0]->$name() ? 1 : 0 };
             },
         };
     },

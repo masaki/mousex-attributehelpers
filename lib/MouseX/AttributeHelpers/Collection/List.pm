@@ -26,11 +26,11 @@ has '+method_constructors' => (
             },
             map => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::map { $_[1]->($_) } @{ $_[0]->$name() } };
+                return sub { map { $_[1]->($_) } @{ $_[0]->$name() } };
             },
             grep => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::grep { $_[1]->($_) } @{ $_[0]->$name() } };
+                return sub { grep { $_[1]->($_) } @{ $_[0]->$name() } };
             },
             elements => sub {
                 my ($attr, $name) = @_;
@@ -38,7 +38,7 @@ has '+method_constructors' => (
             },
             join => sub {
                 my ($attr, $name) = @_;
-                return sub { CORE::join $_[1], @{ $_[0]->$name() } };
+                return sub { join $_[1], @{ $_[0]->$name() } };
             },
             get => sub {
                 my ($attr, $name) = @_;
