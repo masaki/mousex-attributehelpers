@@ -136,10 +136,10 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<MooseX::AttributeHelpers>,
-
-L<MouseX::AttributeHelpers::Counter>, L<MouseX::AttributeHelpers::Number>,
-L<MouseX::AttributeHelpers::String>, L<MouseX::AttributeHelpers::Bool>,
+L<MouseX::AttributeHelpers::Counter>,
+L<MouseX::AttributeHelpers::Number>,
+L<MouseX::AttributeHelpers::String>,
+L<MouseX::AttributeHelpers::Bool>,
 L<MouseX::AttributeHelpers::Collection::List>,
 L<MouseX::AttributeHelpers::Collection::Array>,
 L<MouseX::AttributeHelpers::Collection::ImmutableHash>,
