@@ -59,6 +59,9 @@ MouseX::AttributeHelpers - Extend your attribute interfaces
 MouseX::AttributeHelpers provides commonly used attribute helper
 methods for more specific types of data.
 
+As seen in the L</SYNOPSIS>, you specify the extension via the
+C<metaclass> parameter.
+
 =head1 PARAMETERS
 
 =head2 provides
@@ -84,25 +87,47 @@ and any additional arguments passed to the final method.
 
 =head2 L<Counter|MouseX::AttributeHelpers::Counter>
 
+Methods for incrementing and decrementing a counter attribute.
+
 =head2 L<Number|MouseX::AttributeHelpers::Number>
+
+Common numerical operations.
 
 =head2 L<String|MouseX::AttributeHelpers::String>
 
+Common methods for string values.
+
 =head2 L<Bool|MouseX::AttributeHelpers::Bool>
+
+Common methods for boolean values.
 
 =head2 L<Collection::List|MouseX::AttributeHelpers::Collection::List>
 
+Common list methods for array references.
+
 =head2 L<Collection::Array|MouseX::AttributeHelpers::Collection::Array>
 
-=head2 L<Collection::Hash|MouseX::AttributeHelpers::Collection::Hash>
+Common methods for array references.
 
 =head2 L<Collection::ImmutableHash|MouseX::AttributeHelpers::Collection::ImmutableHash>
 
+Common methods for hash references.
+
+=head2 L<Collection::Hash|MouseX::AttributeHelpers::Collection::Hash>
+
+Common additional methods for hash references.
+
 =head2 L<Collection::Bag|MouseX::AttributeHelpers::Collection::Bag>
+
+Methods for incrementing and decrementing a value of collection.
 
 =head1 AUTHOR
 
 NAKAGAWA Masaki E<lt>masaki@cpan.orgE<gt>
+
+=head1 THANKS TO
+
+L<MooseX::AttributeHelpers/AUTHOR>
 
 =head1 LICENSE
 
@@ -111,6 +136,14 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<MooseX::AttributeHelpers>
+L<MooseX::AttributeHelpers>,
+
+L<MouseX::AttributeHelpers::Counter>, L<MouseX::AttributeHelpers::Number>,
+L<MouseX::AttributeHelpers::String>, L<MouseX::AttributeHelpers::Bool>,
+L<MouseX::AttributeHelpers::Collection::List>,
+L<MouseX::AttributeHelpers::Collection::Array>,
+L<MouseX::AttributeHelpers::Collection::ImmutableHash>,
+L<MouseX::AttributeHelpers::Collection::Hash>,
+L<MouseX::AttributeHelpers::Collection::Bag>
 
 =cut

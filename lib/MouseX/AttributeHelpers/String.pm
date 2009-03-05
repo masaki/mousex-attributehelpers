@@ -1,5 +1,11 @@
 package MouseX::AttributeHelpers::String;
 
+{
+    package # hide from PAUSE
+        Mouse::Meta::Attribute::Custom::String;
+    sub register_implementation { 'MouseX::AttributeHelpers::String' }
+}
+
 use Mouse;
 
 extends 'MouseX::AttributeHelpers::Base';
@@ -66,8 +72,45 @@ has '+method_constructors' => (
 
 no Mouse;
 
-package # hide from PAUSE
-    Mouse::Meta::Attribute::Custom::String;
-sub register_implementation { 'MouseX::AttributeHelpers::String' }
-
 1;
+
+=head1 NAME
+
+MouseX::AttributeHelpers::String
+
+=head1 SYNOPSIS
+
+T.B.D.
+
+=head1 PROVIDED METHODS
+
+=head2 append
+
+=head2 prepend
+
+=head2 replace
+
+=head2 match
+
+=head2 chop
+
+=head2 chomp
+
+=head2 inc
+
+=head2 clear
+
+=head1 AUTHOR
+
+NAKAGAWA Masaki E<lt>masaki@cpan.orgE<gt>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<MouseX::AttributeHelpers>, L<MouseX::AttributeHelpers::Base>
+
+=cut
