@@ -1,7 +1,7 @@
 use Test::More;
 use Test::Deep;
 
-eval "use Any::Moose 0.05";
+eval "use Any::Moose 0.05 ()";
 plan skip_all => "Any::Moose 0.05 required for testing" if $@;
 plan tests => 19;
 
