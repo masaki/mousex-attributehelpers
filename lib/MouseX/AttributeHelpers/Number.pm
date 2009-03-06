@@ -55,23 +55,56 @@ MouseX::AttributeHelpers::Number
 
 =head1 SYNOPSIS
 
-T.B.D.
+    package Real;
+    use Mouse;
+    use MouseX::AttributeHelpers;
+  
+    has 'integer' => (
+        metaclass => 'Number',
+        is        => 'rw',
+        isa       => 'Int',
+        default   => 5,
+        provides  => {
+            set => 'set',
+            add => 'add',
+            sub => 'sub',
+            mul => 'mul',
+            div => 'div',
+            mod => 'mod',
+            abs => 'abs',
+        },
+    );
 
-=head1 PROVIDED METHODS
+    package main;
+    my $real = Real->new;
 
-=head2 set
+    $real->add(5); # same as $real->integer($real->integer + 5);
+    $real->sub(2); # same as $real->integer($real->integer - 2);
 
-=head2 add
+=head1 DESCRIPTION
 
-=head2 sub
+This provides a simple numeric attribute,
+which supports most of the basic math operations.
 
-=head2 mul
+=head1 PROVIDERS
 
-=head2 div
+=over 4
 
-=head2 mod
+=item B<set>
 
-=head2 abs
+=item B<add>
+
+=item B<sub>
+
+=item B<mul>
+
+=item B<div>
+
+=item B<mod>
+
+=item B<abs>
+
+=back
 
 =head1 AUTHOR
 

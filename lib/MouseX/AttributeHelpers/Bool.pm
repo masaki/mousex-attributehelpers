@@ -43,17 +43,50 @@ MouseX::AttributeHelpers::Bool
 
 =head1 SYNOPSIS
 
-T.B.D.
+    package Room;
+    use Mouse;
+    use MouseX::AttributeHelpers;
+  
+    has 'is_lit' => (
+        metaclass => 'Bool',
+        is        => 'rw',
+        isa       => 'Int',
+        default   => 0,
+        provides  => {
+            set    => 'illuminate',
+            unset  => 'darken',
+            toggle => 'flip_switch',
+            not    => 'is_dark',
+        },
+    );
 
-=head1 PROVIDED METHODS
 
-=head2 set
+    package main;
+    my $room = Room->new;
 
-=head2 unset
+    $room->illuminate;  # same as $room->is_lit(1);
+    $room->darken;      # same as $room->is_lit(0);
+    $room->flip_switch; # same as $room->is_lit(not $room->is_lit);
+    $room->is_dark;     # same as !$room->is_lit
 
-=head2 toggle
+=head1 DESCRIPTION
 
-=head2 not
+This module provides a simple boolean attribute,
+which supports most of the basic math operations.
+
+=head1 PROVIDERS
+
+=over 4
+
+=item B<set>
+
+=item B<unset>
+
+=item B<toggle>
+
+=item B<not>
+
+=back
 
 =head1 AUTHOR
 

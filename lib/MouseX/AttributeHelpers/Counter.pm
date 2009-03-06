@@ -43,17 +43,46 @@ MouseX::AttributeHelpers::Counter
 
 =head1 SYNOPSIS
 
-T.B.D.
+    package MyHomePage;
+    use Mouse;
+    use MouseX::AttributeHelpers;
+  
+    has 'counter' => (
+        metaclass => 'Counter',
+        is        => 'rw',
+        isa       => 'Num',
+        default   => 0,
+        provides  => {
+            inc   => 'inc_counter',
+            dec   => 'dec_counter',
+            reset => 'reset_counter',
+        },
+    );
 
-=head1 PROVIDED METHODS
+    package main;
+    my $page = MyHomePage->new;
 
-=head2 reset
+    $page->inc_counter; # same as $page->counter($page->counter + 1);
+    $page->dec_counter; # same as $page->counter($page->counter - 1);
 
-=head2 set
+=head1 DESCRIPTION
 
-=head2 inc
+This module provides a simple counter attribute,
+which can be incremented and decremented.
 
-=head2 dec
+=head1 PROVIDERS
+
+=over 4
+
+=item B<reset>
+
+=item B<set>
+
+=item B<inc>
+
+=item B<dec>
+
+=back
 
 =head1 AUTHOR
 

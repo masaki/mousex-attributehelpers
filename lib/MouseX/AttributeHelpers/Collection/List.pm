@@ -1,5 +1,11 @@
 package MouseX::AttributeHelpers::Collection::List;
 
+{
+    package # hide from PAUSE
+        Mouse::Meta::Attribute::Custom::Collection::List;
+    sub register_implementation { 'MouseX::AttributeHelpers::Collection::List' }
+}
+
 use Mouse;
 
 extends 'MouseX::AttributeHelpers::Base';
@@ -58,8 +64,74 @@ has '+method_constructors' => (
 
 no Mouse;
 
-package # hide from PAUSE
-    Mouse::Meta::Attribute::Custom::Collection::List;
-sub register_implementation { 'MouseX::AttributeHelpers::Collection::List' }
-
 1;
+
+=head1 NAME
+
+MouseX::AttributeHelpers::Collection::List
+
+=head1 SYNOPSIS
+
+    package MyClass;
+    use Mouse;
+    use MouseX::AttributeHelpers;
+
+    has 'options' => (
+        metaclass => 'Collection::List',
+        is        => 'rw',
+        isa       => 'ArrayRef',
+        default   => sub { [] },
+        provides  => {
+            count    => 'num_options',
+            empty    => 'has_options',
+            map      => 'map_options',
+            grep     => 'filter_options',
+            elements => 'all_options',
+        },
+    );
+
+=head1 DESCRIPTION
+
+This module provides an List attribute which provides
+a number of list operations.
+
+=head1 PROVIDERS
+
+=over 4
+
+=item B<count>
+
+=item B<empty>
+
+=item B<find>
+
+=item B<map>
+
+=item B<grep>
+
+=item B<elements>
+
+=item B<join>
+
+=item B<get>
+
+=item B<first>
+
+=item B<last>
+
+=back
+
+=head1 AUTHOR
+
+NAKAGAWA Masaki E<lt>masaki@cpan.orgE<gt>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<MouseX::AttributeHelpers>, L<MouseX::AttributeHelpers::Base>
+
+=cut

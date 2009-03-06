@@ -80,25 +80,53 @@ MouseX::AttributeHelpers::String
 
 =head1 SYNOPSIS
 
-T.B.D.
+    package MyHomePage;
+    use Mouse;
+    use MouseX::AttributeHelpers;
+  
+    has 'text' => (
+        metaclass => 'String',
+        is        => 'rw',
+        isa       => 'Str',
+        default   => '',
+        provides  => {
+            append => 'add_text',
+            clear  => 'clear_text',
+        },
+    );
 
-=head1 PROVIDED METHODS
+    package main;
+    my $page = MyHomePage->new;
 
-=head2 append
+    $page->add_text("foo"); # same as $page->text($page->text . "foo");
+    $page->clear_text;      # same as $page->text('');
 
-=head2 prepend
+=head1 DESCRIPTION
 
-=head2 replace
+This module provides a simple string attribute,
+to which mutating string operations can be applied more easily.
 
-=head2 match
+=head1 PROVIDERS
 
-=head2 chop
+=over 4
 
-=head2 chomp
+=item B<append>
 
-=head2 inc
+=item B<prepend>
 
-=head2 clear
+=item B<replace>
+
+=item B<match>
+
+=item B<chop>
+
+=item B<chomp>
+
+=item B<inc>
+
+=item B<clear>
+
+=back
 
 =head1 AUTHOR
 

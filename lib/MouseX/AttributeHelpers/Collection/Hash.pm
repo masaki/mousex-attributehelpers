@@ -1,5 +1,11 @@
 package MouseX::AttributeHelpers::Collection::Hash;
 
+{
+    package # hide from PAUSE
+        Mouse::Meta::Attribute::Custom::Collection::Hash;
+    sub register_implementation { 'MouseX::AttributeHelpers::Collection::Hash' }
+}
+
 use Mouse;
 use MouseX::AttributeHelpers::Collection::ImmutableHash;
 
@@ -42,8 +48,65 @@ has '+method_constructors' => (
 
 no Mouse;
 
-package # hide from PAUSE
-    Mouse::Meta::Attribute::Custom::Collection::Hash;
-sub register_implementation { 'MouseX::AttributeHelpers::Collection::Hash' }
-
 1;
+
+=head1 NAME
+
+MouseX::AttributeHelpers::Collection::Hash
+
+=head1 SYNOPSIS
+
+    package MyClass;
+    use Mouse;
+    use MouseX::AttributeHelpers;
+
+    has 'options' => (
+        metaclass => 'Collection::Hash',
+        is        => 'rw',
+        isa       => 'HashRef',
+        default   => sub { +{} },
+        provides  => {
+            set    => 'set_option',
+            get    => 'get_option',
+            empty  => 'has_options',
+            count  => 'num_options',
+            delete => 'delete_option',
+        },
+    );
+
+=head1 DESCRIPTION
+
+This module provides an Hash attribute which provides
+a number of hash-like operations.
+
+=head1 PROVIDERS
+
+This module also consumes the B<ImmutableHash> method providers.
+See also L<MouseX::AttributeHelpers::Collection::ImmutableHash>.
+
+=over 4
+
+=item B<set>
+
+=item B<clear>
+
+=item B<delete>
+
+=back
+
+=head1 AUTHOR
+
+NAKAGAWA Masaki E<lt>masaki@cpan.orgE<gt>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<MouseX::AttributeHelpers>,
+L<MouseX::AttributeHelpers::Base>,
+L<MouseX::AttributeHelpers::Collection::ImmutableHash>
+
+=cut

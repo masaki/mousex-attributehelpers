@@ -4,6 +4,7 @@ all_from 'lib/MouseX/AttributeHelpers.pm';
 
 requires 'Mouse' => '0.18';
 requires 'Mouse::Meta::Attribute';
+requires 'Mouse::Util::TypeConstraints';
 
 recommends 'Any::Moose' => '0.05';
 

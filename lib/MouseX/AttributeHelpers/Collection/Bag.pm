@@ -1,6 +1,13 @@
 package MouseX::AttributeHelpers::Collection::Bag;
 
+{
+    package # hide from PAUSE
+        Mouse::Meta::Attribute::Custom::Collection::Bag;
+    sub register_implementation { 'MouseX::AttributeHelpers::Collection::Bag' }
+}
+
 use Mouse;
+use Mouse::Util::TypeConstraints;
 use MouseX::AttributeHelpers::Collection::ImmutableHash;
 
 extends 'MouseX::AttributeHelpers::Base';
@@ -27,10 +34,69 @@ has '+method_constructors' => (
     },
 );
 
+subtype 'Bag', as 'HashRef';
+
 no Mouse;
 
-package # hide from PAUSE
-    Mouse::Meta::Attribute::Custom::Collection::Bag;
-sub register_implementation { 'MouseX::AttributeHelpers::Collection::Bag' }
-
 1;
+
+=head1 NAME
+
+MouseX::AttributeHelpers::Collection::Bag
+
+=head1 SYNOPSIS
+
+    package MyClass;
+    use Mouse;
+    use MouseX::AttributeHelpers;
+
+    has 'word_histogram' => (
+        metaclass => 'Collection::Bag',
+        is        => 'rw',
+        isa       => 'Bag', # exported
+        default   => sub { +{} },
+        provides  => {
+            add    => 'add_word',
+            get    => 'get_count_for',            
+            empty  => 'has_any_words',
+            count  => 'num_words',
+            delete => 'delete_word',
+        },
+    );
+
+=head1 DESCRIPTION
+
+This module provides an Hash attribute which provides
+a number of hash-like operations.
+
+=head1 PROVIDERS
+
+This module also consumes the B<ImmutableHash> method providers.
+See also L<MouseX::AttributeHelpers::Collection::ImmutableHash>.
+
+=over 4
+
+=item B<add>
+
+=item B<delete>
+
+=item B<reset>
+
+=back
+
+=head1 AUTHOR
+
+NAKAGAWA Masaki E<lt>masaki@cpan.orgE<gt>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 SEE ALSO
+
+L<MouseX::AttributeHelpers>,
+L<MouseX::AttributeHelpers::Base>,
+L<MouseX::AttributeHelpers::Collection::ImmutableHash>
+
+=cut
