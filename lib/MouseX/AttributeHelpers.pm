@@ -1,7 +1,7 @@
 package MouseX::AttributeHelpers;
 
 use 5.008_001;
-use Mouse 0.17 (); # 0.18 ();
+use Mouse 0.18;
 use MouseX::AttributeHelpers::Counter;
 use MouseX::AttributeHelpers::Number;
 use MouseX::AttributeHelpers::String;
@@ -13,6 +13,8 @@ use MouseX::AttributeHelpers::Collection::Hash;
 use MouseX::AttributeHelpers::Collection::Bag;
 
 our $VERSION = '0.01';
+
+no Mouse;
 
 1;
 
