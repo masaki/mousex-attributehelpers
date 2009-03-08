@@ -62,6 +62,8 @@ has '+method_constructors' => (
     },
 );
 
+sub helper_type { 'ArrayRef' }
+
 no Mouse;
 
 1;

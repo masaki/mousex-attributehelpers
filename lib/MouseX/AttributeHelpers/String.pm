@@ -70,6 +70,9 @@ has '+method_constructors' => (
     },
 );
 
+sub helper_type    { 'Str' }
+sub helper_default { '' }
+
 no Mouse;
 
 1;

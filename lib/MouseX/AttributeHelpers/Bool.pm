@@ -33,6 +33,8 @@ has '+method_constructors' => (
     },
 );
 
+sub helper_type { 'Bool' }
+
 no Mouse;
 
 1;

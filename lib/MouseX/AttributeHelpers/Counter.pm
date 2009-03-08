@@ -33,6 +33,9 @@ has '+method_constructors' => (
     },
 );
 
+sub helper_type    { 'Num' }
+sub helper_default { 0 }
+
 no Mouse;
 
 1;

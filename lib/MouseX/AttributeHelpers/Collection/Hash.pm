@@ -46,6 +46,8 @@ has '+method_constructors' => (
     },
 );
 
+sub helper_type { 'HashRef' }
+
 no Mouse;
 
 1;

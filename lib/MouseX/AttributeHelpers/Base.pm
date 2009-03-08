@@ -30,16 +30,17 @@ around 'create' => sub {
                 confess "The method ($aliased) already exists in class ($classname)";
             }
 
-            my $method;
-            if (ref $args eq 'ARRAY') {
-                $method = $attr->_curry($code, @$args);
-            }
-            elsif (ref $args eq 'CODE') {
-                $method = $attr->_curry_sub($code, $args);
-            }
-            else {
-                confess "curries parameter must be ref type HASH or CODE";
-            }
+            my $method = do {
+                if (ref $args eq 'ARRAY') {
+                    $attr->_make_curry($code, @$args);
+                }
+                elsif (ref $args eq 'CODE') {
+                    $attr->_make_curry_with_sub($code, $args);
+                }
+                else {
+                    confess "curries parameter must be ref type HASH or CODE";
+                }
+            };
 
             $class->add_method($aliased => $method);
         }
@@ -61,7 +62,26 @@ around 'create' => sub {
     return $attr;
 };
 
-sub _curry {
+around 'canonicalize_args' => sub {
+    my ($next, $self, $name, %args) = @_;
+
+    %args = $next->($self, $name, %args);
+    $args{is} = 'rw' unless exists $args{is};
+
+    if (not exists $args{isa} and defined(my $type = $self->helper_type)) {
+        $args{isa} = $type;
+    }
+    if (not exists $args{default} and defined(my $default = $self->helper_default)) {
+        $args{default} = $default;
+    }
+
+    return %args;
+};
+
+sub helper_type    {}
+sub helper_default {}
+
+sub _make_curry {
     my $self = shift;
     my $code = shift;
     my @args = @_;
@@ -71,7 +91,7 @@ sub _curry {
     };
 }
 
-sub _curry_sub {
+sub _make_curry_with_sub {
     my $self = shift;
     my $body = shift;
     my $code = shift;

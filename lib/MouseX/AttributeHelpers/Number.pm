@@ -45,6 +45,8 @@ has '+method_constructors' => (
     },
 );
 
+sub helper_type { 'Num' }
+
 no Mouse;
 
 1;

@@ -34,7 +34,10 @@ has '+method_constructors' => (
     },
 );
 
-subtype 'Bag', as 'HashRef';
+subtype 'Bag', as 'HashRef[Int]';
+
+sub helper_type    { 'Bag' }
+sub helper_default { sub { +{} } }
 
 no Mouse;
 

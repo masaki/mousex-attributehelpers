@@ -7,9 +7,6 @@ use Test::More tests => 18;
 
     has 'word_histogram' => (
         metaclass => 'Collection::Bag',
-        is        => 'rw',
-        isa       => 'Bag',
-        default   => sub { +{} },
         provides  => {
             add    => 'add_word',
             delete => 'delete_word',
