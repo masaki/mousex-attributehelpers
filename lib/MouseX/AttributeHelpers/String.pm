@@ -111,25 +111,29 @@ to which mutating string operations can be applied more easily.
 
 =head1 PROVIDERS
 
-=over 4
+=head2 append
 
-=item B<append>
+=head2 prepend
 
-=item B<prepend>
+=head2 replace
 
-=item B<replace>
+=head2 match
 
-=item B<match>
+=head2 chop
 
-=item B<chop>
+=head2 chomp
 
-=item B<chomp>
+=head2 inc
 
-=item B<inc>
+=head2 clear
 
-=item B<clear>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
+
+=head2 helper_default
 
 =head1 AUTHOR
 

@@ -102,29 +102,31 @@ a number of array operations.
 This module also consumes the B<List> method providers.
 See also L<MouseX::AttributeHelpers::Collection::List>.
 
-=over 4
+=head2 push
 
-=item B<push>
+=head2 pop
 
-=item B<pop>
+=head2 unshift
 
-=item B<unshift>
+=head2 shift
 
-=item B<shift>
+=head2 get
 
-=item B<get>
+=head2 set
 
-=item B<set>
+=head2 clear
 
-=item B<clear>
+=head2 delete
 
-=item B<delete>
+=head2 insert
 
-=item B<insert>
+=head2 splice
 
-=item B<splice>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
 
 =head1 AUTHOR
 

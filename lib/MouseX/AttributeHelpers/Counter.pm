@@ -75,17 +75,21 @@ which can be incremented and decremented.
 
 =head1 PROVIDERS
 
-=over 4
+=head2 reset
 
-=item B<reset>
+=head2 set
 
-=item B<set>
+=head2 inc
 
-=item B<inc>
+=head2 dec
 
-=item B<dec>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
+
+=head2 helper_default
 
 =head1 AUTHOR
 

@@ -78,17 +78,19 @@ which supports most of the basic math operations.
 
 =head1 PROVIDERS
 
-=over 4
+=head2 set
 
-=item B<set>
+=head2 unset
 
-=item B<unset>
+=head2 toggle
 
-=item B<toggle>
+=head2 not
 
-=item B<not>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
 
 =head1 AUTHOR
 

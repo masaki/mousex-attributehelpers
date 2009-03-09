@@ -90,23 +90,25 @@ which supports most of the basic math operations.
 
 =head1 PROVIDERS
 
-=over 4
+=head2 set
 
-=item B<set>
+=head2 add
 
-=item B<add>
+=head2 sub
 
-=item B<sub>
+=head2 mul
 
-=item B<mul>
+=head2 div
 
-=item B<div>
+=head2 mod
 
-=item B<mod>
+=head2 abs
 
-=item B<abs>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
 
 =head1 AUTHOR
 

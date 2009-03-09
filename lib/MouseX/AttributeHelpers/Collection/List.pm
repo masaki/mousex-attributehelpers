@@ -99,29 +99,31 @@ a number of list operations.
 
 =head1 PROVIDERS
 
-=over 4
+=head2 count
 
-=item B<count>
+=head2 empty
 
-=item B<empty>
+=head2 find
 
-=item B<find>
+=head2 map
 
-=item B<map>
+=head2 grep
 
-=item B<grep>
+=head2 elements
 
-=item B<elements>
+=head2 join
 
-=item B<join>
+=head2 get
 
-=item B<get>
+=head2 first
 
-=item B<first>
+=head2 last
 
-=item B<last>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
 
 =head1 AUTHOR
 

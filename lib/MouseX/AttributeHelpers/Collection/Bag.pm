@@ -77,15 +77,19 @@ a number of hash-like operations.
 This module also consumes the B<ImmutableHash> method providers.
 See also L<MouseX::AttributeHelpers::Collection::ImmutableHash>.
 
-=over 4
+=head2 add
 
-=item B<add>
+=head2 delete
 
-=item B<delete>
+=head2 reset
 
-=item B<reset>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
+
+=head2 helper_default
 
 =head1 AUTHOR
 

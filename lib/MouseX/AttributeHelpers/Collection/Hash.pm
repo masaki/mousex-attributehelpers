@@ -86,15 +86,17 @@ a number of hash-like operations.
 This module also consumes the B<ImmutableHash> method providers.
 See also L<MouseX::AttributeHelpers::Collection::ImmutableHash>.
 
-=over 4
+=head2 set
 
-=item B<set>
+=head2 clear
 
-=item B<clear>
+=head2 delete
 
-=item B<delete>
+=head1 METHODS
 
-=back
+=head2 method_constructors
+
+=head2 helper_type
 
 =head1 AUTHOR
 

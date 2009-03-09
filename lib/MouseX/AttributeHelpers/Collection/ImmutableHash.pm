@@ -85,21 +85,25 @@ which provides a number of hash-line operations.
 
 =over 4
 
-=item B<count>
+=head2 count
 
-=item B<empty>
+=head2 empty
 
-=item B<exists>
+=head2 exists
 
-=item B<get>
+=head2 get
 
-=item B<keys>
+=head2 keys
 
-=item B<values>
+=head2 values
 
-=item B<kv>
+=head2 kv
 
-=back
+=head1 METHODS
+
+=head2 method_constructors
+
+=head2 helper_type
 
 =head1 AUTHOR
 
