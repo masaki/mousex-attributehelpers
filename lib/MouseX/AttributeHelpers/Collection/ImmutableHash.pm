@@ -83,8 +83,6 @@ which provides a number of hash-line operations.
 
 =head1 PROVIDERS
 
-=over 4
-
 =head2 count
 
 =head2 empty
