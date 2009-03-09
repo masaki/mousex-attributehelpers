@@ -12,6 +12,7 @@
 \.cvsignore
 ^t/9\d_.*\.t
 ^t/perlcritic
+\.git/
 \.svn/
 \.shipit
 \._
