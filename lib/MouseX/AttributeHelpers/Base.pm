@@ -109,13 +109,17 @@ no Mouse;
 
 MouseX::AttributeHelpers::Base - Base class for attribute helpers
 
-=head1 ATTRIBUTES
+=head1 METHODS
 
 =head2 method_constructors
 
-=head1 METHODS
+=head2 helper_type
+
+=head2 helper_default
 
 =head2 create
+
+=head2 canonicalize_args
 
 =head1 AUTHOR
 

@@ -3,6 +3,7 @@ use Config ();
 use File::Spec ();
 eval "use Test::Spelling";
 plan skip_all => "Test::Spelling is not installed." if $@;
+plan skip_all => "set TEST_POD to enable this test" unless $ENV{TEST_POD};
 
 my $spell;
 for my $path (split /$Config::Config{path_sep}/ => $ENV{PATH}) {
