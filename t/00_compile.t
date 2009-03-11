@@ -1,3 +1,2 @@
-use Test::More tests => 1;
-
-use ok 'MouseX::AttributeHelpers';
+use Test::UseAllModules;
+BEGIN { all_uses_ok(); }
