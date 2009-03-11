@@ -49,7 +49,7 @@ MouseX::AttributeHelpers::Counter
     package MyHomePage;
     use Mouse;
     use MouseX::AttributeHelpers;
-  
+
     has 'counter' => (
         metaclass => 'Counter',
         is        => 'rw',
