@@ -45,7 +45,10 @@ use Test::Deep;
     with 'Configurable', 'Pluggable';
 }
 
-my $obj = MyClass->new(options => [ 1..10 ]);
+my $obj = MyClass->new(
+    config  => { foo => 1, bar => 2, baz => 3 },
+    plugins => [qw(Foo Bar Baz)],
+);
 
 my @methods = qw(
     config plugins
@@ -55,11 +58,6 @@ my @methods = qw(
 for my $method (@methods) {
     can_ok $obj => $method;
 }
-
-my $obj = MyClass->new(
-    config  => { foo => 1, bar => 2, baz => 3 },
-    plugins => [qw(Foo Bar Baz)],
-);
 
 ok $obj->has_configs, 'Collection::Hash "empty" from Role ok';
 is $obj->num_configs => 3, 'Collection::Hash "count" from Role ok';
