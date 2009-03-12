@@ -12,17 +12,17 @@ has 'method_constructors' => (
 );
 
 around 'create' => sub {
-    my ($next, @args) = @_;
-    my $attr = $next->(@args);
-    my $class = $attr->associated_class;
+    my ($next, $self, $class, $name, %args) = @_;
+    my $attr = $next->($self, $class, $name, %args);
+
     my $constructors = $attr->method_constructors;
 
     # curries
     my %curries = %{ $attr->{curries} || {} };
-    while (my ($name, $curry) = each %curries) {
-        next unless my $constructor = $constructors->{$name};
+    while (my ($key, $curry) = each %curries) {
+        next unless my $constructor = $constructors->{$key};
 
-        my $code = $constructor->($attr, $attr->name);
+        my $code = $constructor->($attr, $name);
 
         while (my ($aliased, $args) = each %$curry) {
             if (exists $class->{methods}->{$aliased}) {
@@ -48,15 +48,15 @@ around 'create' => sub {
 
     # provides
     my %provides = %{ $attr->{provides} || {} };
-    while (my ($name, $aliased) = each %provides) {
-        next unless my $constructor = $constructors->{$name};
+    while (my ($key, $aliased) = each %provides) {
+        next unless my $constructor = $constructors->{$key};
 
         if (exists $class->{methods}->{$aliased}) {
             my $classname = $class->name;
             confess "The method ($aliased) already exists in class ($classname)";
         }
 
-        $class->add_method($aliased => $constructor->($attr, $attr->name));
+        $class->add_method($aliased => $constructor->($attr, $name));
     }
 
     return $attr;
@@ -66,13 +66,11 @@ around 'canonicalize_args' => sub {
     my ($next, $self, $name, %args) = @_;
 
     %args = $next->($self, $name, %args);
-    $args{is} = 'rw' unless exists $args{is};
+    $args{is}  = 'rw'               unless exists $args{is};
+    $args{isa} = $self->helper_type unless exists $args{isa};
 
-    if (not exists $args{isa} and defined(my $type = $self->helper_type)) {
-        $args{isa} = $type;
-    }
-    if (not exists $args{default} and defined(my $default = $self->helper_default)) {
-        $args{default} = $default;
+    unless (exists $args{default} or exists $args{builder} or exists $args{lazy_build}) {
+        $args{default} = $self->helper_default if defined $self->helper_default;
     }
 
     return %args;
