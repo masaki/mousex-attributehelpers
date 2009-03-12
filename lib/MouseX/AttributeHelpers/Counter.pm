@@ -15,19 +15,30 @@ has '+method_constructors' => (
         return +{
             reset => sub {
                 my ($attr, $name) = @_;
-                return sub { $_[0]->$name($attr->default) };
+                return sub {
+                    $_[0]->{$name} = do {
+                        if ($attr->has_default) {
+                            my $default = $attr->default;
+                            ref $default eq 'CODE' ? $default->($_[0]) : $default;
+                        }
+                        elsif ($attr->has_builder) {
+                            my $builder = $attr->builder;
+                            $_[0]->$builder;
+                        }
+                    };
+                };
             },
             set => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name($_[1]) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} = $_[1] };
             },
             inc => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name($_[0]->$name() + (defined $_[1] ? $_[1] : 1)) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} += defined $_[1] ? $_[1] : 1 };
             },
             dec => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name($_[0]->$name() - (defined $_[1] ? $_[1] : 1)) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} -= defined $_[1] ? $_[1] : 1 };
             },
         };
     },

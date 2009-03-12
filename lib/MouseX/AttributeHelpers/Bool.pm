@@ -14,20 +14,20 @@ has '+method_constructors' => (
     default => sub {
         return +{
             set => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name(1) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} = 1 };
             },
             unset => sub  {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name(0) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} = 0 };
             },
             toggle => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name(!$_[0]->$name()) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} = not $_[0]->{$name} };
             },
             not => sub {
-                my ($attr, $name) = @_;
-                return sub { !$_[0]->$name() };
+                my (undef, $name) = @_;
+                return sub { not $_[0]->{$name} };
             },
         };
     },
@@ -52,7 +52,7 @@ MouseX::AttributeHelpers::Bool
     has 'is_lit' => (
         metaclass => 'Bool',
         is        => 'rw',
-        isa       => 'Int',
+        isa       => 'Bool',
         default   => 0,
         provides  => {
             set    => 'illuminate',

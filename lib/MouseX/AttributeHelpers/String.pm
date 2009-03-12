@@ -14,57 +14,40 @@ has '+method_constructors' => (
     default => sub {
         return +{
             append => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name($_[0]->$name() . $_[1]) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} .= $_[1] };
             },
             prepend => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name($_[1] . $_[0]->$name()) };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} = $_[1] . $_[0]->{$name} };
             },
             replace => sub {
-                my ($attr, $name) = @_;
+                my (undef, $name) = @_;
                 return sub {
-                    my $v = $_[0]->$name();
-                    if ((ref $_[2] || '') eq 'CODE') {
-                        $v =~ s/$_[1]/$_[2]->()/e;
-                    }
-                    else {
-                        $v =~ s/$_[1]/$_[2]/;
-                    }
-                    $_[0]->$name($v);
+                    (ref $_[2] || '') eq 'CODE'
+                        ? $_[0]->{$name} =~ s/$_[1]/$_[2]->()/e
+                        : $_[0]->{$name} =~ s/$_[1]/$_[2]/;
                 };
             },
             match => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name() =~ $_[1] };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} =~ $_[1] };
             },
             chop => sub {
-                my ($attr, $name) = @_;
-                return sub {
-                    my $v = $_[0]->$name();
-                    CORE::chop($v);
-                    $_[0]->$name($v);
-                };
+                my (undef, $name) = @_;
+                return sub { chop $_[0]->{$name} };
             },
             chomp => sub {
-                my ($attr, $name) = @_;
-                return sub {
-                    my $v = $_[0]->$name();
-                    CORE::chomp($v);
-                    $_[0]->$name($v);
-                };
+                my (undef, $name) = @_;
+                return sub { chomp $_[0]->{$name} };
             },
             inc => sub {
-                my ($attr, $name) = @_;
-                return sub {
-                    my $v = $_[0]->$name();
-                    $v++;
-                    $_[0]->$name($v);
-                };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name}++ };
             },
             clear => sub {
-                my ($attr, $name) = @_;
-                return sub { $_[0]->$name('') };
+                my (undef, $name) = @_;
+                return sub { $_[0]->{$name} = '' };
             },
         };
     },
