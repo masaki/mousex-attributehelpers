@@ -12,7 +12,7 @@ use MouseX::AttributeHelpers::Collection::ImmutableHash;
 use MouseX::AttributeHelpers::Collection::Hash;
 use MouseX::AttributeHelpers::Collection::Bag;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 no Mouse;
 
