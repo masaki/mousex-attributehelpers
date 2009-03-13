@@ -7,10 +7,10 @@ requires 'Mouse::Meta::Attribute';
 requires 'Mouse::Util::TypeConstraints';
 requires 'Class::Method::Modifiers';
 
-recommends 'Any::Moose' => '0.05';
 recommends 'Class::Method::Modifiers::Fast';
 
 tests 't/*.t';
+test_requires 'Any::Moose' => '0.05';
 test_requires 'Test::More';
 test_requires 'Test::UseAllModules';
 test_requires 'Test::Deep';
