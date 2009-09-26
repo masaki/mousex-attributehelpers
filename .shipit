@@ -1,3 +1,6 @@
-steps = FindVersion, ChangeVersion, CheckChangeLog, Manifest, DistTest, Commit, Tag, MakeDist, UploadCPAN, DistClean
-git.tagpattern = release-%v
+steps = FindVersion, ChangeVersion, CheckChangeLog, Manifest, DistTest, Commit, Tag, MakeDist, UploadCPAN, Twitter, DistClean
+
+git.tagpattern = %v
 git.push_to = origin
+
+twitter.config = ~/.pit/twitter.yaml
