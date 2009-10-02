@@ -15,7 +15,12 @@ test_requires 'Test::UseAllModules';
 test_requires 'Test::Deep';
 test_requires 'Test::Data::Scalar';
 author_tests 'xt';
+
 use_test_base;
 
-auto_include_deps;
+include_deps 'Test::More';
+include_deps 'Test::UseAllModules';
+include_deps 'Test::Deep';
+include_deps 'Test::Data::Scalar';
+
 WriteAll;
