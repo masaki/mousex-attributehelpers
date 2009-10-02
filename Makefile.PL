@@ -5,7 +5,6 @@ all_from 'lib/MouseX/AttributeHelpers.pm';
 requires 'Mouse' => '0.37';
 requires 'Mouse::Meta::Attribute';
 requires 'Mouse::Util::TypeConstraints';
-requires 'Class::Method::Modifiers';
 
 recommends 'Class::Method::Modifiers::Fast';
 
