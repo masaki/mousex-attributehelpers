@@ -1,6 +1,6 @@
 package MouseX::AttributeHelpers;
 
-use 5.008_001;
+use 5.006_002;
 use Mouse 0.37;
 use MouseX::AttributeHelpers::Counter;
 use MouseX::AttributeHelpers::Number;
