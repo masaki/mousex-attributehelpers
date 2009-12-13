@@ -1,7 +1,7 @@
 package MouseX::AttributeHelpers;
 
 use 5.006_002;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use MouseX::AttributeHelpers::Counter;
 use MouseX::AttributeHelpers::Number;

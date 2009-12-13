@@ -1,5 +1,9 @@
 Revision history for Perl extension MouseX::AttributeHelpers
 
+0.05
+        - Modernize the code for new Mouse (gfx)
+        - use Mouse 0.40 (gfx)
+
 0.04
         - use Mouse 0.37, thanks to Goro Fuji (gfx)
 
