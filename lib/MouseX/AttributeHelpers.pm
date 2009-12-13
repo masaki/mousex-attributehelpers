@@ -1,7 +1,8 @@
 package MouseX::AttributeHelpers;
 
 use 5.006_002;
-use Mouse 0.37;
+our $VERSION = '0.04';
+
 use MouseX::AttributeHelpers::Counter;
 use MouseX::AttributeHelpers::Number;
 use MouseX::AttributeHelpers::String;
@@ -12,11 +13,9 @@ use MouseX::AttributeHelpers::Collection::ImmutableHash;
 use MouseX::AttributeHelpers::Collection::Hash;
 use MouseX::AttributeHelpers::Collection::Bag;
 
-our $VERSION = '0.04';
-
-no Mouse;
 
 1;
+__END__
 
 =head1 NAME
 
