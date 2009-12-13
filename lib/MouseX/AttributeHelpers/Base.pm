@@ -11,10 +11,13 @@ has 'method_constructors' => (
     default => sub { +{} },
 );
 
-around 'create' => sub {
-    my ($next, $self, $class, $name, %args) = @_;
-    my $attr = $next->($self, $class, $name, %args);
+around 'install_accessors' => sub {
+    my ($next, $attr, @args) = @_;
 
+    $attr->$next(@args);
+
+    my $metaclass    = $attr->associated_class;
+    my $name         = $attr->name;
     my $constructors = $attr->method_constructors;
 
     # curries
@@ -25,9 +28,9 @@ around 'create' => sub {
         my $code = $constructor->($attr, $name);
 
         while (my ($aliased, $args) = each %$curry) {
-            if (exists $class->{methods}->{$aliased}) {
-                my $classname = $class->name;
-                confess "The method ($aliased) already exists in class ($classname)";
+            if ($metaclass->has_method($aliased)) {
+                my $classname = $metaclass->name;
+                $attr->throw_error("The method ($aliased) already exists in class ($classname)");
             }
 
             my $method = do {
@@ -38,11 +41,11 @@ around 'create' => sub {
                     $attr->_make_curry_with_sub($code, $args);
                 }
                 else {
-                    confess "curries parameter must be ref type HASH or CODE";
+                    $attr->throw_error("curries parameter must be ref type HASH or CODE");
                 }
             };
 
-            $class->add_method($aliased => $method);
+            $metaclass->add_method($aliased => $method);
         }
     }
 
@@ -51,29 +54,29 @@ around 'create' => sub {
     while (my ($key, $aliased) = each %provides) {
         next unless my $constructor = $constructors->{$key};
 
-        if (exists $class->{methods}->{$aliased}) {
-            my $classname = $class->name;
-            confess "The method ($aliased) already exists in class ($classname)";
+        if ($metaclass->has_method($aliased)) {
+            my $classname = $metaclass->name;
+            $attr->throw_error("The method ($aliased) already exists in class ($classname)");
         }
 
-        $class->add_method($aliased => $constructor->($attr, $name));
+        $metaclass->add_method($aliased => $constructor->($attr, $name));
     }
 
-    return $attr;
+    return;
 };
 
-around 'canonicalize_args' => sub {
-    my ($next, $self, $name, %args) = @_;
+around '_process_options' => sub {
+    my ($next, $class, $name, $args) = @_;
 
-    %args = $next->($self, $name, %args);
-    $args{is}  = 'rw'               unless exists $args{is};
-    $args{isa} = $self->helper_type unless exists $args{isa};
+    $args->{is}  = 'rw'                unless exists $args->{is};
+    $args->{isa} = $class->helper_type unless exists $args->{isa};
 
-    unless (exists $args{default} or exists $args{builder} or exists $args{lazy_build}) {
-        $args{default} = $self->helper_default if defined $self->helper_default;
+    unless (exists $args->{default} or exists $args->{builder} or exists $args->{lazy_build}) {
+        $args->{default} = $class->helper_default if defined $class->helper_default;
     }
 
-    return %args;
+    $class->$next($name, $args);
+    return;
 };
 
 sub helper_type    {}
@@ -114,10 +117,6 @@ MouseX::AttributeHelpers::Base - Base class for attribute helpers
 =head2 helper_type
 
 =head2 helper_default
-
-=head2 create
-
-=head2 canonicalize_args
 
 =head1 AUTHOR
 
