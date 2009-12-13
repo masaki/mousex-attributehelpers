@@ -2,11 +2,9 @@ use inc::Module::Install;
 name 'MouseX-AttributeHelpers';
 all_from 'lib/MouseX/AttributeHelpers.pm';
 
-requires 'Mouse' => '0.37';
+requires 'Mouse' => '0.40';
 requires 'Mouse::Meta::Attribute';
 requires 'Mouse::Util::TypeConstraints';
-
-recommends 'Class::Method::Modifiers::Fast';
 
 tests 't/*.t';
 test_requires 'Any::Moose' => '0.10';
