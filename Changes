@@ -1,5 +1,10 @@
 Revision history for Perl extension MouseX::AttributeHelpers
 
+0.06
+        - Make submodules auto-loaded (gfx)
+        - Make metaclasses immutable (gfx)
+        - Call associate_method() for attributes (gfx)
+
 0.05
         - Modernize the code for new Mouse (gfx)
         - use Mouse 0.40 (gfx)
