@@ -158,6 +158,8 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
+L<Mouse>
+
 L<MouseX::AttributeHelpers::Counter>,
 L<MouseX::AttributeHelpers::Number>,
 L<MouseX::AttributeHelpers::String>,
@@ -167,5 +169,7 @@ L<MouseX::AttributeHelpers::Collection::Array>,
 L<MouseX::AttributeHelpers::Collection::ImmutableHash>,
 L<MouseX::AttributeHelpers::Collection::Hash>,
 L<MouseX::AttributeHelpers::Collection::Bag>
+
+L<MooseX::AttributeHelpers>
 
 =cut
