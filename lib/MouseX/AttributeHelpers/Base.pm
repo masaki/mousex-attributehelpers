@@ -46,6 +46,7 @@ around 'install_accessors' => sub {
             };
 
             $metaclass->add_method($aliased => $method);
+            $attr->associate_method($aliased);
         }
     }
 
@@ -60,6 +61,7 @@ around 'install_accessors' => sub {
         }
 
         $metaclass->add_method($aliased => $constructor->($attr, $name));
+        $attr->associate_method($aliased);
     }
 
     return;
