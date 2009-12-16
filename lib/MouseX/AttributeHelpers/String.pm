@@ -1,11 +1,4 @@
 package MouseX::AttributeHelpers::String;
-
-{
-    package # hide from PAUSE
-        Mouse::Meta::Attribute::Custom::String;
-    sub register_implementation { 'MouseX::AttributeHelpers::String' }
-}
-
 use Mouse;
 
 extends 'MouseX::AttributeHelpers::Base';

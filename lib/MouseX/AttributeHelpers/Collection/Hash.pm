@@ -1,11 +1,4 @@
 package MouseX::AttributeHelpers::Collection::Hash;
-
-{
-    package # hide from PAUSE
-        Mouse::Meta::Attribute::Custom::Collection::Hash;
-    sub register_implementation { 'MouseX::AttributeHelpers::Collection::Hash' }
-}
-
 use Mouse;
 use MouseX::AttributeHelpers::Collection::ImmutableHash;
 

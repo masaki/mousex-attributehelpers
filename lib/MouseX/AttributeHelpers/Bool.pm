@@ -1,11 +1,4 @@
 package MouseX::AttributeHelpers::Bool;
-
-{
-    package # hide from PAUSE
-        Mouse::Meta::Attribute::Custom::Bool;
-    sub register_implementation { 'MouseX::AttributeHelpers::Bool' }
-}
-
 use Mouse;
 
 extends 'MouseX::AttributeHelpers::Base';

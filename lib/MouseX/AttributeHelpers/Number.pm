@@ -1,11 +1,4 @@
 package MouseX::AttributeHelpers::Number;
-
-{
-    package # hide from PAUSE
-        Mouse::Meta::Attribute::Custom::Number;
-    sub register_implementation { 'MouseX::AttributeHelpers::Number' }
-}
-
 use Mouse;
 
 extends 'MouseX::AttributeHelpers::Base';

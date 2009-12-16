@@ -1,11 +1,4 @@
 package MouseX::AttributeHelpers::Collection::Array;
-
-{
-    package # hide from PAUSE
-        Mouse::Meta::Attribute::Custom::Collection::Array;
-    sub register_implementation { 'MouseX::AttributeHelpers::Collection::Array' }
-}
-
 use Mouse;
 use MouseX::AttributeHelpers::Collection::List;
 

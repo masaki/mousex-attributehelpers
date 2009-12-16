@@ -1,11 +1,4 @@
 package MouseX::AttributeHelpers::Counter;
-
-{
-    package # hide from PAUSE
-        Mouse::Meta::Attribute::Custom::Counter;
-    sub register_implementation { 'MouseX::AttributeHelpers::Counter' }
-}
-
 use Mouse;
 
 extends 'MouseX::AttributeHelpers::Base';

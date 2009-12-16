@@ -1,11 +1,4 @@
 package MouseX::AttributeHelpers::Collection::Bag;
-
-{
-    package # hide from PAUSE
-        Mouse::Meta::Attribute::Custom::Collection::Bag;
-    sub register_implementation { 'MouseX::AttributeHelpers::Collection::Bag' }
-}
-
 use Mouse;
 use Mouse::Util::TypeConstraints;
 use MouseX::AttributeHelpers::Collection::ImmutableHash;
