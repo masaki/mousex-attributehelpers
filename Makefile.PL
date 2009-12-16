@@ -1,6 +1,16 @@
+sub readme_from {}
+sub readme_markdown_from {}
+sub auto_set_repository {}
+sub author_tests {}
+sub author_requires {}
+
 use inc::Module::Install;
 name 'MouseX-AttributeHelpers';
 all_from 'lib/MouseX/AttributeHelpers.pm';
+
+readme_from 'lib/MouseX/AttributeHelpers.pm';
+readme_markdown_from 'lib/MouseX/AttributeHelpers.pm';
+auto_set_repository;
 
 requires 'Mouse' => '0.40';
 requires 'Mouse::Meta::Attribute';
