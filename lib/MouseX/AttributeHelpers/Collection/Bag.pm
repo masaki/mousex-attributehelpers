@@ -33,8 +33,9 @@ sub helper_type    { 'Bag' }
 sub helper_default { sub { +{} } }
 
 no Mouse;
-
-1;
+no Mouse::Util::TypeConstraints;
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+__END__
 
 =head1 NAME
 

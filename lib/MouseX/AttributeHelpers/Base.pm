@@ -1,5 +1,4 @@
 package MouseX::AttributeHelpers::Base;
-
 use Mouse;
 
 extends 'Mouse::Meta::Attribute';
@@ -104,9 +103,11 @@ sub _make_curry_with_sub {
     };
 }
 
+# Mouse does not support proper imetaclass constructor replacement,
+# so we must set inline_constructor false
 no Mouse;
-
-1;
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+__END__
 
 =head1 NAME
 

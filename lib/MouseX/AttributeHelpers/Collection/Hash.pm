@@ -42,8 +42,8 @@ has '+method_constructors' => (
 sub helper_type { 'HashRef' }
 
 no Mouse;
-
-1;
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+__END__
 
 =head1 NAME
 
