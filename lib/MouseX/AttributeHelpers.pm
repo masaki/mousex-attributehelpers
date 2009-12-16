@@ -1,7 +1,7 @@
 package MouseX::AttributeHelpers;
 
 use 5.006_002;
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Mouse::Util qw(load_class);
 
