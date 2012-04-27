@@ -12,7 +12,14 @@ has '+method_constructors' => (
             },
             get => sub {
                 my ($attr, $name) = @_;
-                return sub { @_ == 2 ? $_[0]->$name()->{$_[1]} : @{ shift->$name() }{@_} };
+                return sub {
+                    if (@_ == 2) {
+                        $_[0]->$name()->{$_[1]};
+                    } else {
+                        my $h = shift->$name();
+                        @{ $h }{@_};
+                    }
+                }
             },
             keys => sub {
                 my ($attr, $name) = @_;
