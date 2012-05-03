@@ -1,4 +1,4 @@
-use Test::More tests => 26;
+use Test::More tests => 27;
 use Test::Deep;
 use Test::Data::Scalar;
 
@@ -49,6 +49,9 @@ is $obj->num_options => 3, 'provides count ok, we have three options';
 is $obj->get_option('foo') => 1, 'provides get ok';
 is $obj->get_option('bar') => 2, 'provides get ok';
 is $obj->get_option('baz') => 3, 'provides get ok';
+
+is_deeply [ $obj->get_option(qw(foo bar)) ], [ 1, 2 ], 'get_option(@keys)';
+
 cmp_deeply [ sort $obj->option_keys ] => [qw(bar baz foo)], 'provides keys ok';
 cmp_deeply [ sort $obj->option_values ] => [qw(1 2 3)], 'provides values ok';
 
