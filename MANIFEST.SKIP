@@ -5,6 +5,7 @@
 \.git/
 ~$
 ^#
+^MYMETA\.
 ^MANIFEST\.
 ^Makefile$
 ^Build$
