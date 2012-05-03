@@ -2,7 +2,8 @@ Makefile
 Makefile.old
 MANIFEST
 MANIFEST.bak
-META.yml
+MYMETA.*
+META.*
 blib
 cover_db
 cover_db_view
