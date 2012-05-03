@@ -1,5 +1,8 @@
 Revision history for Perl extension MouseX::AttributeHelpers
 
+0.07
+        - Fix ImmutableHash's get problem (kzys)
+
 0.06
         - Make submodules auto-loaded (gfx)
         - Make metaclasses immutable (gfx)
