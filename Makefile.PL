@@ -30,7 +30,6 @@ author_requires 'Test::Spelling';
 author_requires 'ShipIt';
 author_requires 'ShipIt::Step::Manifest';
 author_requires 'ShipIt::Step::DistClean';
-author_requires 'ShipIt::Step::Twitter';
 
 include_deps 'Test::More';
 include_deps 'Test::UseAllModules';
