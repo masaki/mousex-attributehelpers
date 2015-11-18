@@ -19,7 +19,7 @@ test_requires 'Any::Moose' => '0.10';
 test_requires 'Test::More';
 test_requires 'Test::UseAllModules';
 test_requires 'Test::Deep';
-test_requires 'Test::Data::Scalar';
+test_requires 'Test::Data';
 
 author_tests 'xt';
 author_requires 'Test::Pod';
@@ -32,6 +32,6 @@ author_requires 'ShipIt::Step::DistClean';
 include_deps 'Test::More';
 include_deps 'Test::UseAllModules';
 include_deps 'Test::Deep';
-include_deps 'Test::Data::Scalar';
+include_deps 'Test::Data';
 
 WriteAll;
